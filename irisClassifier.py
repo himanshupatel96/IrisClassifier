@@ -4,8 +4,6 @@ import csv
 import operator
 from random import shuffle
 
-# dataSet = genfromtxt('Iris.csv', delimiter=',', skip_header=1)
-
 def Classifier(inX, data, labels, k):
 	dSize = data.shape[0]
 	diffMat = tile(inX, (dSize,1)) - data
@@ -18,7 +16,7 @@ def Classifier(inX, data, labels, k):
 	for i in range(0,k):
 		vote = labels[sortedDistIndices[i]]
 		classCount[vote] = classCount.get(vote,0) + 1
-	sortedClassCount = sorted(classCount.iteritems(), key = operator.itemgetter(1), reverse=True)
+	sortedClassCount = sorted(classCount.items(), key = operator.itemgetter(1), reverse=True)
 	return sortedClassCount[0][0]
 
 
@@ -26,7 +24,7 @@ rawData = []
 labels = []
 dataSet = []
 
-with open("Iris.csv", "rb") as f:
+with open("Iris.csv", "rt") as f:
 	reader = csv.reader(f,delimiter="\t")
 	for row in enumerate(reader):
 		rawData.append((row[1][0]).split(","))
@@ -61,6 +59,4 @@ for row in testdata:
 		cnt+=1
 	i+=1
 accuracy = (cnt*100.0)/total
-print accuracy
-print cnt
-print total
+print(accuracy)
